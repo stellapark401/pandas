@@ -2,13 +2,6 @@ import numpy as np
 import pandas as pd
 from icecream import ic
 
-# method chaining look it up
-# ndarray: nth dimension array: will be used frequently with tensor
-# df.values returns values sorted by observation in data type of ndarray
-# df.to_dict returns {column: {index: value, ...}, ....}
-# df.pivot()'s arg index can be [id1, id2], then the ids are arranged hierarchically
-# pandas explanation: https://rfriend.tistory.com/275
-# data reshaping, NoSQL: managing DB without query: faster than the conventional method: why pandas is popular
 # 21, 24 with pivot
 
 
@@ -19,6 +12,7 @@ class Quiz:
                            "product_code": ['com', 'phone', 'tv', 'com', 'phone', 'tv', 'com', 'phone', 'tv'],
                            "grade": ['A', 'A', 'A', 'A', 'A', 'A', 'B', 'B', 'B'],
                            "purchase_amount": [30, 10, 0, 40, 15, 30, 0, 0, 10]})
+    pd.wide_to_long(q30_df, )
 
     @staticmethod
     def quiz_2():
