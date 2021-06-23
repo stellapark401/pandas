@@ -2,8 +2,6 @@ import numpy as np
 import pandas as pd
 from icecream import ic
 
-# 21, 24 with pivot
-
 
 class Quiz:
     q4_df: pd.DataFrame({})
@@ -12,7 +10,6 @@ class Quiz:
                            "product_code": ['com', 'phone', 'tv', 'com', 'phone', 'tv', 'com', 'phone', 'tv'],
                            "grade": ['A', 'A', 'A', 'A', 'A', 'A', 'B', 'B', 'B'],
                            "purchase_amount": [30, 10, 0, 40, 15, 30, 0, 0, 10]})
-    pd.wide_to_long(q30_df, )
 
     @staticmethod
     def quiz_2():
@@ -97,8 +94,10 @@ class Quiz:
                 df.iloc[i, 0] = 'python'
         ic(df)
 
+    # it didn't check to see if the given age is NaN, so the frequency is incorrect.
     def quiz_21_wo_pivot(self):
         df = self.q4_df
+        # this can be replaced as df['animal'].replace('snake','python')
         for i, j in enumerate(df.index):
             if df.iloc[i, 0] == 'snake':
                 df.iloc[i, 0] = 'python'
@@ -108,18 +107,20 @@ class Quiz:
         temp_cat = df_cat['visits'].unique()
         temp_python = df_python['visits'].unique()
         temp_dog = df_dog['visits'].unique()
-        cat_avg = [{f'visits: {temp_cat[i]}': df.loc[df['visits'] == j, 'age'].sum() / len(
-            df.loc[df['visits'] == temp_cat[i]])} for i, j in enumerate(temp_cat)]
-        python_avg = [{f'visits: {temp_python[i]}': df.loc[df['visits'] == j, 'age'].sum() / len(
-            df.loc[df['visits'] == temp_python[i]])} for i, j in enumerate(temp_python)]
-        dog_avg = [{f'visits: {temp_dog[i]}': df.loc[df['visits'] == j, 'age'].sum() / len(
-            df.loc[df['visits'] == temp_dog[i]])} for i, j in enumerate(temp_dog)]
+        cat_avg = [{f'visits: {temp_cat[i]}': df.loc[df_cat['visits'] == j, 'age'].sum() / len(
+            df.loc[df_cat['visits'] == temp_cat[i]])} for i, j in enumerate(temp_cat)]
+        python_avg = [{f'visits: {temp_python[i]}': df_python.loc[df['visits'] == j, 'age'].sum() / len(
+            df_python.loc[df['visits'] == temp_python[i]])} for i, j in enumerate(temp_python)]
+        dog_avg = [{f'visits: {temp_dog[i]}': df_dog.loc[df['visits'] == j, 'age'].sum() / len(
+            df_dog.loc[df['visits'] == temp_dog[i]])} for i, j in enumerate(temp_dog)]
         ic(cat_avg)
         ic(python_avg)
         ic(dog_avg)
 
     def quiz_21_wh_pivot(self):
-        pass
+        df = self.q4_df
+        avg_age = df.pivot_table(index='animal', columns='visits', values='age', aggfunc='mean')
+        ic(avg_age)
 
     @staticmethod
     def quiz_22():
@@ -308,13 +309,14 @@ class Quiz:
             elif menu == 20:
                 qz.quiz_20()
             elif menu == 21:
-                qz.quiz_21_wo_pivot()
+                qz.quiz_21_wh_pivot()
             elif menu == 22:
                 qz.quiz_22()
             elif menu == 23:
                 qz.quiz_23()
             elif menu == 24:
                 qz.quiz_24_wo_idxmax()
+                qz.quiz_24_wh_idxmax()
             elif menu == 25:
                 qz.quiz_25()
             elif menu == 26:
